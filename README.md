@@ -82,7 +82,9 @@ $payment = new Payment('{provider}', $options);
 
 **Important:** If your .configfile file is under server document_root, you must deny access to that file via http.
 
-For this add in your .htaccess file:
+Apache
+
+Add in your .htaccess file:
 ```
 <Files ~ "^\.(.*)$">
     Order allow,deny
@@ -90,6 +92,10 @@ For this add in your .htaccess file:
     Satisfy all
 </Files>
 ```
+
+Nginx
+
+TBD
 
 ### Bog
 
