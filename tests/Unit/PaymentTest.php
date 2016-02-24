@@ -25,9 +25,16 @@ class PaymentTest extends TestCase
 
     /**
      * @expectedException \TypeError
+     * @expectedException \PHPUnit_Framework_Exception
      */
     public function testCreateWithWrongOptions()
     {
+        if (version_compare('7.0.0', PHP_VERSION, '>')) {
+            $this->setExpectedException('\PHPUnit_Framework_Exception');
+        } else {
+            $this->setExpectedException('\TypeError');
+        }
+
         $payment = new Payment(null, 'aaa');
     }
 

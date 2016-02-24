@@ -4,7 +4,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/Longman/geopayment.svg)](https://packagist.org/packages/longman/geopayment)
 [![Total Downloads](https://img.shields.io/packagist/dt/Longman/geopayment.svg)](https://packagist.org/packages/longman/geopayment)
 [![Downloads Month](https://img.shields.io/packagist/dm/Longman/geopayment.svg)](https://packagist.org/packages/longman/geopayment)
-[![License](https://img.shields.io/packagist/l/Longman/geopayment.svg)](https://github.com/akalongman/php-geopayment/LICENSE.md)
+[![License](https://img.shields.io/packagist/l/Longman/geopayment.svg)](LICENSE.md)
 
 Georgian banks payment integration library
 
