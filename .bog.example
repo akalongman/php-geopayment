@@ -1,0 +1,11 @@
+merchant_id='' # Merchant ID in format XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+account_id='' # Account ID in format XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+page_id='' # Page ID in format XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+http_auth_user='' # Username for HTTP Authorization
+http_auth_pass='' # Password for HTTP Authorization
+shop_name='' # Shop Name
+payment_url='https://sb3d.georgiancard.ge/payment/start.wsm' # Payment init url
+lang='ka' # ka, en
+currency='981' # 981 - GEL, 840 - USD, 978 - EUR
+cert_path='/path/to/certificate' # Path to certificate for checking signature
+log_path='/path/to/logs' # Path to logs folder

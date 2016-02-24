@@ -1,0 +1,10 @@
+CountryCode='268' # 268 - Georgia
+CurrencyCode='981' # 981 - GEL, 840 - USD, 978 - EUR
+MerchantName='' # Merchant name and url in format: shop_name!www.shopurl.ge
+MerchantURL='' # URL for redirect after payment
+MerchantCity='Tbilisi' # Merchant city
+MerchantID='' # Merchant ID in format 0000000XXXXXXXX-00000001
+xDDDSProxy.Language='01' # 01 - GEO,  02 - ENG, 03 - RUS, 04 - DEU, 05 - TUR
+payment_url='https://e-commerce.cartubank.ge/servlet/Process3DSServlet/3dsproxy_init.jsp' # Payment init url
+cert_path='/path/to/certificate' # Path to certificate for checking signature
+log_path='/path/to/logs' # Path to logs folder
