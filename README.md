@@ -99,7 +99,7 @@ TBD
 
 ### Bog
 
-BOG config example you can find here [.bog.example](https://github.com/akalongman/php-geopayment/.bog.example)
+BOG config example you can find here [.bog.example](.bog.example)
 
 #### Bog Step 1: Redirecting on payment page
 
@@ -250,7 +250,7 @@ $bog->sendSuccessResponse();
 
 ### Cartu
 
-Cartu config example you can find here [.cartu.example](https://github.com/akalongman/php-geopayment/.cartu.example)
+Cartu config example you can find here [.cartu.example](.cartu.example)
 
 #### Cartu Step 1: Redirecting on payment page
 
