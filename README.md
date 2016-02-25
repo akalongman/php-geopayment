@@ -12,11 +12,11 @@ Georgian banks payment integration library
 - [Installation](#installation)
     - [Composer](#composer)
 - [Usage](#usage)
-    - [BOG](#bog) Bank of Georgia
+    - [BOG](#bog) (Bank of Georgia)
         - [Step 1: Redirecting on payment page](#bog-step-1-redirecting-on-payment-page)
         - [Step 2: Bank checks payment availability](#bog-step-2-bank-checks-payment-availability)
         - [Step 3: Bank registers payment](#bog-step-3-bank-registers-payment)
-    - [Cartu](#cartu) Cartu Bank
+    - [Cartu](#cartu) (Cartu Bank)
         - [Step 1: Redirecting on payment page](#cartu-step-1-redirecting-on-payment-page)
         - [Step 2: Bank registers payment](#cartu-step-2-bank-registers-payment)
 - [TODO](#todo)
