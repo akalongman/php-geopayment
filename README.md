@@ -40,7 +40,7 @@ Create *composer.json* file:
     "name": "yourproject/yourproject",
     "type": "project",
     "require": {
-        "longman/geopayment": "~1.0.0"
+        "longman/geopayment": "*"
     }
 }
 ```
