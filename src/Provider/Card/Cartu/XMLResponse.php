@@ -7,9 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Longman\GeoPayment\Provider\Pay\Cartu;
+namespace Longman\GeoPayment\Provider\Card\Cartu;
 
-use Longman\GeoPayment\Provider\Pay\AbstractXMLResponse;
+use Longman\GeoPayment\Provider\AbstractXMLResponse;
 
 class XMLResponse extends AbstractXMLResponse
 {

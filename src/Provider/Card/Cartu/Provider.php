@@ -8,13 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Longman\GeoPayment\Provider\Pay\Cartu;
+namespace Longman\GeoPayment\Provider\Card\Cartu;
 
 use Carbon\Carbon;
 use Longman\GeoPayment\Options;
-use Longman\GeoPayment\Provider\Pay\AbstractProvider;
-use Longman\GeoPayment\Provider\Pay\Cartu\XMLResponse;
+use Longman\GeoPayment\Provider\AbstractProvider;
+use Longman\GeoPayment\Provider\Card\Cartu\XMLResponse;
 use Symfony\Component\HttpFoundation\Request;
+use InvalidArgumentException;
 
 class Provider extends AbstractProvider
 {
@@ -35,7 +36,7 @@ class Provider extends AbstractProvider
         if ($mode == 'response') {
             $ConfirmRequest = $this->request->get('ConfirmRequest');
             if ($ConfirmRequest) {
-                $this->xml_request = $this->parseXML($ConfirmRequest);
+                $this->xml_request = $this->parseXml($ConfirmRequest);
             }
         }
         return $this;

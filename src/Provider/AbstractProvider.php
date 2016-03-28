@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Longman\GeoPayment\Provider\Pay;
+namespace Longman\GeoPayment\Provider;
 
 use Longman\GeoPayment\Logger;
 use Longman\GeoPayment\Options;
@@ -158,16 +158,6 @@ abstract class AbstractProvider
     }
 
     /**
-     * Get payment url
-     *
-     * @return string
-     */
-    public function getPaymentUrl()
-    {
-        // must be implemented in child class
-    }
-
-    /**
      * Check HTTP Authorization
      *
      * @return void
@@ -182,7 +172,8 @@ abstract class AbstractProvider
             exit;
         } else {
             if ($_SERVER['PHP_AUTH_USER'] != $this->options->get('http_auth_user')
-                || $_SERVER['PHP_AUTH_PW'] != $this->options->get('http_auth_pass')) {
+                || $_SERVER['PHP_AUTH_PW'] != $this->options->get('http_auth_pass')
+            ) {
                 $this->logger->warning('HTTP Authorization error: wrong username or password');
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Access denied';
@@ -200,7 +191,7 @@ abstract class AbstractProvider
      *
      * @throws \UnexpectedValueException
      */
-    protected function parseXML($xml)
+    protected function parseXml($xml)
     {
         libxml_use_internal_errors(true);
         $object = simplexml_load_string($xml);
@@ -268,10 +259,10 @@ abstract class AbstractProvider
     public function format($amount = 0, $decimals = 2)
     {
         $amount = str_replace([',', ' '], ['.', ''], trim($amount));
-        $amount = (float)$amount;
+        $amount = (float) $amount;
         $amount = ($amount * 100) / 100;
         $amount = number_format($amount, $decimals, '.', '');
-        return (float)$amount;
+        return (float) $amount;
     }
 
     /**

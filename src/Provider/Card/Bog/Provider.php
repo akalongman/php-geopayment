@@ -8,11 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Longman\GeoPayment\Provider\Pay\Bog;
+namespace Longman\GeoPayment\Provider\Card\Bog;
 
 use Longman\GeoPayment\Options;
-use Longman\GeoPayment\Provider\Pay\AbstractProvider;
-use Longman\GeoPayment\Provider\Pay\Bog\XMLResponse;
+use Longman\GeoPayment\Provider\AbstractProvider;
+use Longman\GeoPayment\Provider\Card\Bog\XMLResponse;
+use InvalidArgumentException;
 
 class Provider extends AbstractProvider
 {

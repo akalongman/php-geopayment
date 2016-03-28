@@ -1,0 +1,3 @@
+http_auth_user='' # Username for HTTP Authorization
+http_auth_pass='' # Password for HTTP Authorization
+log_path='/path/to/logs' # Path to logs folder

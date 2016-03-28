@@ -6,19 +6,30 @@
 [![Downloads Month](https://img.shields.io/packagist/dm/Longman/geopayment.svg)](https://packagist.org/packages/longman/geopayment)
 [![License](https://img.shields.io/packagist/l/Longman/geopayment.svg)](LICENSE.md)
 
-Georgian banks payment integration library
+Georgian bank/terminal payment integration library
 
 ## Table of Contents
 - [Installation](#installation)
     - [Composer](#composer)
 - [Usage](#usage)
-    - [BOG](#bog) (Bank of Georgia)
-        - [Step 1: Redirecting on payment page](#bog-step-1-redirecting-on-payment-page)
-        - [Step 2: Bank checks payment availability](#bog-step-2-bank-checks-payment-availability)
-        - [Step 3: Bank registers payment](#bog-step-3-bank-registers-payment)
-    - [Cartu](#cartu) (Cartu Bank)
-        - [Step 1: Redirecting on payment page](#cartu-step-1-redirecting-on-payment-page)
-        - [Step 2: Bank registers payment](#cartu-step-2-bank-registers-payment)
+    - [Card Payments](#card-payments) (Visa/MasterCard/AmEX)
+        - [BOG](#bog) (Bank of Georgia)
+            - [Step 1: Redirecting on payment page](#bog-step-1-redirecting-on-payment-page)
+            - [Step 2: Bank checks payment availability](#bog-step-2-bank-checks-payment-availability)
+            - [Step 3: Bank registers payment](#bog-step-3-bank-registers-payment)
+        - [Cartu](#cartu) (Cartu Bank)
+            - [Step 1: Redirecting on payment page](#cartu-step-1-redirecting-on-payment-page)
+            - [Step 2: Bank registers payment](#cartu-step-2-bank-registers-payment)
+    - [Terminal Payments](#terminal-payments)
+        - [TBC Pay](#tbc-pay)
+            - [Step 1: Check payment](#tbc-pay-step-1-check-payment)
+            - [Step 2: Register Payment](#tbc-pay-step-2-register-payment)
+            - [Recommended Response codes](#tbc-pay-recommended-response-codes)
+        - [Liberty Pay](#liberty-pay)
+            - [Step 1: Check payment](#liberty-pay-step-1-check-payment)
+            - [Step 2: Register Payment](#liberty-liberty-step-2-register-payment)
+            - [Recommended Response codes](#liberty-pay-recommended-response-codes)
+
 - [TODO](#todo)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
@@ -74,7 +85,7 @@ $options = [
 ];
 
 // Create payment instance
-$payment = new Payment('{provider}', $options);
+$payment = new Payment('{provider}', '{type}', $options);
 
 // do more job depending on bank documentation
 
@@ -97,11 +108,13 @@ Nginx
 
 TBD
 
-### Bog
+### Card Payments
 
-BOG config example you can find here [.bog.example](.bog.example)
+#### Bog
 
-#### Bog Step 1: Redirecting on payment page
+BOG config example you can find here [.bog.example](examples/.bog.example)
+
+##### Bog Step 1: Redirecting on payment page
 
 ```php
 <?php
@@ -114,7 +127,7 @@ $options = [
 ];
 
 // Create payment instance
-$payment = new Payment('bog', $options);
+$payment = new Payment('bog', Payment::TYPE_CARD, $options);
 
 // Set mode 'redirect'
 $bog->setMode('redirect');
@@ -141,7 +154,7 @@ $url = $payment->getPaymentUrl();
 $payment->redirect($url);
 ```
 
-#### Bog Step 2: Bank checks payment availability
+##### Bog Step 2: Bank checks payment availability
 
 ```php
 <?php
@@ -153,7 +166,7 @@ $options = [
     'config_path' => '/path/to/config/.bog',
 ];
 
-$payment = new Payment('bog', $options);
+$payment = new Payment('bog', Payment::TYPE_CARD, $options);
 
 // Set mode 'check'
 $bog->setMode('check');
@@ -193,7 +206,7 @@ $bog->sendSuccessResponse($params);
 ```
 
 
-#### Bog Step 3: Bank registers payment
+##### Bog Step 3: Bank registers payment
 
 ```php
 <?php
@@ -205,7 +218,7 @@ $options = [
     'config_path' => '/path/to/config/.bog',
 ];
 
-$payment = new Payment('bog', $options);
+$payment = new Payment('bog', Payment::TYPE_CARD, $options);
 
 // Set mode 'reg'
 $bog->setMode('reg');
@@ -248,11 +261,11 @@ $bog->sendSuccessResponse();
 ```
 
 
-### Cartu
+#### Cartu
 
-Cartu config example you can find here [.cartu.example](.cartu.example)
+Cartu config example you can find here [.cartu.example](examples/.cartu.example)
 
-#### Cartu Step 1: Redirecting on payment page
+##### Cartu Step 1: Redirecting on payment page
 
 ```php
 <?php
@@ -265,7 +278,7 @@ $options = [
 ];
 
 // Create payment instance
-$payment = new Payment('cartu', $options);
+$payment = new Payment('cartu', Payment::TYPE_CARD, $options);
 
 // Set mode 'redirect'
 $bog->setMode('redirect');
@@ -289,7 +302,7 @@ $url = $payment->getPaymentUrl();
 $payment->redirect($url);
 ```
 
-#### Cartu Step 2: Bank registers payment
+##### Cartu Step 2: Bank registers payment
 
 ```php
 <?php
@@ -301,7 +314,7 @@ $options = [
     'config_path' => '/path/to/config/.cartu',
 ];
 
-$payment = new Payment('cartu', $options);
+$payment = new Payment('cartu', Payment::TYPE_CARD, $options);
 
 $payment->setMode('response');
 
@@ -348,6 +361,140 @@ switch($Status) {
 
 
 ```
+
+
+### Terminal Payments
+
+
+#### TBC Pay
+
+TBC Pay config example you can find here [.tbcpay.example](examples/.tbcpay.example)
+
+##### TBC Pay Step 1: Check payment
+
+```php
+<?php
+require __DIR__.'/vendor/autoload.php';
+
+use Longman\GeoPayment\Payment;
+
+$options = [
+    'config_path' => '/path/to/config/.tbcpay',
+];
+
+// Create payment instance
+$payment = new Payment('tbcpay', Payment::TYPE_PAY, $options);
+
+// Set mode 'check'
+$bog->setMode('check');
+
+// Check HTTP authorization
+$bog->checkHttpAuth();
+
+// Get account identifier from request
+$account = $payment->getParam('account');
+if (empty($account)) {
+    // Pass response code and message
+    $payment->sendErrorResponse(4, 'Invalid Account Number Format');
+}
+
+// Check account id in db and show error if needed
+. . .
+
+// Generate some extra data for response. You can add more parameters if needed
+$extra = [];
+$extra['customer'] = 'John Doe';
+$extra['debt'] = '500.00';
+
+$payment->sendSuccessResponse($extra);
+
+```
+
+##### TBC Pay Step 2: Register Payment
+
+```php
+<?php
+require __DIR__.'/vendor/autoload.php';
+
+use Longman\GeoPayment\Payment;
+
+$options = [
+    'config_path' => '/path/to/config/.tbcpay',
+];
+
+// Create payment instance
+$payment = new Payment('tbcpay', Payment::TYPE_PAY, $options);
+
+// Set mode 'reg'
+$bog->setMode('reg');
+
+// Check HTTP authorization
+$bog->checkHttpAuth();
+
+// Get account identifier from request
+$account = $payment->getParam('account');
+if (empty($account)) {
+    $payment->sendErrorResponse(4, 'Invalid Account Number Format');
+}
+
+// Check account id in db and show error if needed
+. . .
+
+// Get transaction id
+$txn_id = $payment->getParam('txn_id');
+if (empty($txn_id)) {
+    $payment->sendErrorResponse(300, 'txn_id is not defined');
+}
+
+// Check transaction id in db and show error if needed
+. . .
+
+// Get payd amount
+$sum = $payment->getParam('sum');
+if (empty($sum)) {
+    $payment->sendErrorResponse(300, 'sum is not defined');
+}
+
+$payment->sendSuccessResponse();
+
+
+```
+
+##### TBC Pay: Recommended Response codes
+
+| Code | Message |
+| 0    | Success |
+| 1    | Server timeout |
+| 4    | Invalid account format |
+| 5    | Account not found |
+| 7    | Payment is restricted |
+| 215  | Duplicate transaction |
+| 275  | Invalid amount |
+| 300  | Internal server error |
+
+
+#### Liberty Pay
+
+##### Liberty Pay Step 1: Check payment
+
+TBD
+
+##### Liberty Pay Step 2: Register Payment
+
+TBD
+
+##### Liberty Pay: Recommended Response codes
+
+| Code | Message |
+| 0    | Success |
+| 1    | Server timeout |
+| 4    | Invalid account format |
+| 5    | Account not found |
+| 7    | Payment is restricted |
+| 215  | Duplicate transaction |
+| 275  | Invalid amount |
+| 300  | Internal server error |
+
 
 ## TODO
 

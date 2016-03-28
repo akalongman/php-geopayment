@@ -14,7 +14,7 @@ use Dotenv\Dotenv;
 use InvalidArgumentException;
 use Longman\GeoPayment\Contracts\Options as OptionsContract;
 use Longman\GeoPayment\Contracts\Logger as LoggerContract;
-use Longman\GeoPayment\Provider\Pay\AbstractProvider;
+use Longman\GeoPayment\Provider\AbstractProvider;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Monolog\Logger as MonologLogger;
@@ -36,7 +36,7 @@ class Payment
      *
      * @var string
      */
-    protected $type = 'pay';
+    protected $type = 'card';
 
     /**
      * @var \Longman\GeoPayment\Logger
@@ -59,6 +59,17 @@ class Payment
     protected $debug;
 
     /**
+     * @var string
+     */
+    const TYPE_CARD = 'Card';
+
+    /**
+     * @var string
+     */
+    const TYPE_PAY = 'Pay';
+
+
+    /**
      * Constructor
      *
      * @param string $provider  Provider name
@@ -66,8 +77,10 @@ class Payment
      *
      * @return void
      */
-    public function __construct($provider = null, array $options = [])
+    public function __construct($provider = null, $type = self::TYPE_CARD, array $options = [])
     {
+        $this->type = $type;
+
         $this->createOptionsInstance($options);
 
         $this->createRequestInstance();
@@ -215,7 +228,7 @@ class Payment
      */
     protected function createProviderInstance($provider)
     {
-        $class = '\Longman\GeoPayment\Provider\Pay\\' . ucfirst($provider) . '\Provider';
+        $class = '\Longman\GeoPayment\Provider\\'.ucfirst($this->type).'\\' . ucfirst($provider) . '\Provider';
         if (!class_exists($class)) {
             throw new InvalidArgumentException('Provider "' . $provider . '" not found!');
         }

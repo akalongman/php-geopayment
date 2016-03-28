@@ -17,8 +17,8 @@ install:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - vendor/bin/phpunit
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '7.0' ]; then vendor/bin/phpcs --report=full --extensions=php -pn --standard=build/phpcs .; fi"
+  - ./vendor/bin/phpcs --standard=phpcs.xml -snp --encoding=utf-8 src/ --report-width=150
+  - ./vendor/bin/phpunit
 
 matrix:
   allow_failures:

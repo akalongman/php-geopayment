@@ -48,7 +48,7 @@ class PaymentTest extends TestCase
     public function testSetValidConfigFile()
     {
         $payment = new Payment();
-        $payment->setConfigFile(__DIR__.'/../../.bog.example');
+        $payment->setConfigFile(__DIR__.'/../../examples/.bog.example');
         $currency = $payment->getOption('currency');
         $this->assertNotNull($currency);
     }
@@ -62,7 +62,7 @@ class PaymentTest extends TestCase
         $request = Request::createFromGlobals();
         $logger = new Logger($monolog = m::mock('Monolog\Logger'));
 
-        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\Pay\AbstractProvider', [$options, $request, $logger]);
+        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\AbstractProvider', [$options, $request, $logger]);
 
         $provider->addParam('test1', 'value1');
 
@@ -78,7 +78,7 @@ class PaymentTest extends TestCase
         $request = Request::createFromGlobals();
         $logger = new Logger($monolog = m::mock('Monolog\Logger'));
 
-        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\Pay\AbstractProvider', [$options, $request, $logger]);
+        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\AbstractProvider', [$options, $request, $logger]);
 
         $provider->setMode('test');
 
@@ -93,7 +93,7 @@ class PaymentTest extends TestCase
         $request = Request::createFromGlobals();
         $logger = new Logger($monolog = m::mock('Monolog\Logger'));
 
-        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\Pay\AbstractProvider', [$options, $request, $logger]);
+        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\AbstractProvider', [$options, $request, $logger]);
 
         $this->assertSame(10000, $provider->amtToMinor(100));
         $this->assertSame(150000, $provider->amtToMinor(1500));
@@ -108,7 +108,7 @@ class PaymentTest extends TestCase
         $request = Request::createFromGlobals();
         $logger = new Logger($monolog = m::mock('Monolog\Logger'));
 
-        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\Pay\AbstractProvider', [$options, $request, $logger]);
+        $provider = $this->getMockForAbstractClass('Longman\GeoPayment\Provider\AbstractProvider', [$options, $request, $logger]);
 
         $this->assertSame(100.00, $provider->amtToMajor(10000));
         $this->assertSame(1500.00, $provider->amtToMajor(150000));
