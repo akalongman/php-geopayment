@@ -474,6 +474,8 @@ $payment->sendSuccessResponse();
 | 300  | Internal server error |
 
 
+
+
 #### Liberty Pay
 
 ##### Liberty Pay Step 1: Check payment
@@ -487,6 +489,7 @@ TBD
 ##### Liberty Pay: Recommended Response codes
 
 | Code | Message |
+|:----:|:-------:|
 | 0    | Success |
 | 1    | Server timeout |
 | 4    | Invalid account format |
@@ -495,6 +498,9 @@ TBD
 | 215  | Duplicate transaction |
 | 275  | Invalid amount |
 | 300  | Internal server error |
+
+
+
 
 
 ## TODO
