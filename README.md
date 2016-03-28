@@ -463,6 +463,7 @@ $payment->sendSuccessResponse();
 ##### TBC Pay: Recommended Response codes
 
 | Code | Message |
+|:----:|:-------:|
 | 0    | Success |
 | 1    | Server timeout |
 | 4    | Invalid account format |
