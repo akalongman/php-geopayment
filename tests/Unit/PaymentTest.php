@@ -32,7 +32,7 @@ class PaymentTest extends TestCase
         }
 
         $this->setExpectedException('\TypeError');
-        $payment = new Payment(null, 'aaa');
+        $payment = new Payment(null, 'type', 'aaa');
     }
 
     /**
