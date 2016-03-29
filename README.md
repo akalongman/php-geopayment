@@ -96,7 +96,7 @@ $payment = new Payment('{provider}', '{type}', $options);
 
 ```
 
-**Important:** If your .configfile file is under server document_root, you must deny access to that file via http.
+**Important:** If your .config file is under server document_root, you must deny access to that file via http.
 
 Apache
 
@@ -111,7 +111,14 @@ Add in your .htaccess file:
 
 Nginx
 
-TBD
+In server section:
+```
+location ~ /\. {
+    deny all;
+    access_log off;
+    log_not_found off;
+}
+```
 
 ### Card Payments
 
