@@ -9,3 +9,4 @@ lang='ka' # ka, en
 currency='981' # 981 - GEL, 840 - USD, 978 - EUR
 cert_path='/path/to/certificate' # Path to certificate for checking signature
 log_path='/path/to/logs' # Path to logs folder
+allowed_ips='127.0.0.1,192.168.1.*' # Comma separated of allowed IP list. (possible specify ip ranges too)

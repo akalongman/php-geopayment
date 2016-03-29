@@ -63,6 +63,11 @@ And run composer update
 composer require longman/geopayment
 ```
 
+***
+
+[(Back to top)](#table-of-contents)
+
+
 ## Usage
 
 ```php
@@ -169,13 +174,16 @@ $options = [
 $payment = new Payment('bog', Payment::TYPE_CARD, $options);
 
 // Set mode 'check'
-$bog->setMode('check');
+$payment->setMode('check');
+
+// Check IP (if needed)
+$payment->checkIpAllowed();
 
 // Check HTTP authorization
-$bog->checkHttpAuth();
+$payment->checkHttpAuth();
 
 // Check signature validation (depends on documentation)
-$bog->checkSignature();
+$payment->checkSignature();
 
 // Here you must check order_id or any other parameters which before redirecting set via $payment->addParam
 $order_id = $payment->getParam('o.order_id');
@@ -201,7 +209,7 @@ $params['amount'] = 'Order price (In minor units)';
 $params['short_desc'] = 'Payment short description';
 $params['long_desc'] = 'Payment long description';
 
-$bog->sendSuccessResponse($params);
+$payment->sendSuccessResponse($params);
 
 ```
 
@@ -221,13 +229,16 @@ $options = [
 $payment = new Payment('bog', Payment::TYPE_CARD, $options);
 
 // Set mode 'reg'
-$bog->setMode('reg');
+$payment->setMode('reg');
+
+// Check IP (if needed)
+$payment->checkIpAllowed();
 
 // Check HTTP authorization
-$bog->checkHttpAuth();
+$payment->checkHttpAuth();
 
 // Check signature validation (depends on documentation)
-$bog->checkSignature();
+$payment->checkSignature();
 
 // Here you must check order_id or any other parameters which before redirecting set via $payment->addParam
 $order_id = $payment->getParam('o.order_id');
@@ -249,16 +260,21 @@ if ($order->isCompleted()) {
 // Get and check payment result code
 $result_code = $payment->getParam('result_code');
 if (empty($result_code)) {
-    $bog->sendErrorResponse('result_code is empty!');
+    $payment->sendErrorResponse('result_code is empty!');
 }
 
 // Register payment with result code (1 - success, 2 - failed)
 . . .
 
 // Send response
-$bog->sendSuccessResponse();
+$payment->sendSuccessResponse();
 
 ```
+
+***
+
+[(Back to top)](#table-of-contents)
+
 
 
 #### Cartu
@@ -281,7 +297,7 @@ $options = [
 $payment = new Payment('cartu', Payment::TYPE_CARD, $options);
 
 // Set mode 'redirect'
-$bog->setMode('redirect');
+$payment->setMode('redirect');
 
 // generate order id
 $order_id = '1111111';
@@ -318,6 +334,9 @@ $payment = new Payment('cartu', Payment::TYPE_CARD, $options);
 
 $payment->setMode('response');
 
+// Check IP (if needed)
+$payment->checkIpAllowed();
+
 // get bank parameters
 $TransactionId = $payment->getTransactionId();
 $PaymentId = $payment->getPaymentId();
@@ -343,24 +362,29 @@ switch($Status) {
     case 'N': // failed
         // set order status to failed
 
-        $bog->sendErrorResponse('Transaction failed');
+        $payment->sendErrorResponse('Transaction failed');
         break;
 
     case 'U': // unfinished
 
-        $bog->sendErrorResponse('Unfinished request');
+        $payment->sendErrorResponse('Unfinished request');
 
         break;
 
     default:
         // throw error
-        $bog->sendErrorResponse('Status unspecified');
+        $payment->sendErrorResponse('Status unspecified');
 
         break;
 }
 
 
 ```
+
+***
+
+[(Back to top)](#table-of-contents)
+
 
 
 ### Terminal Payments
@@ -386,10 +410,13 @@ $options = [
 $payment = new Payment('tbcpay', Payment::TYPE_PAY, $options);
 
 // Set mode 'check'
-$bog->setMode('check');
+$payment->setMode('check');
+
+// Check IP (if needed)
+$payment->checkIpAllowed();
 
 // Check HTTP authorization
-$bog->checkHttpAuth();
+$payment->checkHttpAuth();
 
 // Get account identifier from request
 $account = $payment->getParam('account');
@@ -426,10 +453,13 @@ $options = [
 $payment = new Payment('tbcpay', Payment::TYPE_PAY, $options);
 
 // Set mode 'reg'
-$bog->setMode('reg');
+$payment->setMode('reg');
+
+// Check IP (if needed)
+$payment->checkIpAllowed();
 
 // Check HTTP authorization
-$bog->checkHttpAuth();
+$payment->checkHttpAuth();
 
 // Get account identifier from request
 $account = $payment->getParam('account');
@@ -474,6 +504,9 @@ $payment->sendSuccessResponse();
 | 300  | Internal server error |
 
 
+***
+
+[(Back to top)](#table-of-contents)
 
 
 #### Liberty Pay
@@ -499,6 +532,10 @@ TBD
 | 275  | Invalid amount |
 | 300  | Internal server error |
 
+
+***
+
+[(Back to top)](#table-of-contents)
 
 
 

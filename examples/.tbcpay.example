@@ -1,3 +1,4 @@
 http_auth_user='' # Username for HTTP Authorization
 http_auth_pass='' # Password for HTTP Authorization
 log_path='/path/to/logs' # Path to logs folder
+allowed_ips='127.0.0.1,192.168.1.*' # Comma separated of allowed IP list. (possible specify ip ranges too)

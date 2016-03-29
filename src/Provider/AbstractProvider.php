@@ -14,6 +14,7 @@ use Longman\GeoPayment\Logger;
 use Longman\GeoPayment\Options;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use UnexpectedValueException;
 
 /**
@@ -178,6 +179,27 @@ abstract class AbstractProvider
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Access denied';
                 exit;
+            }
+        }
+    }
+
+
+    /**
+     * Check if IP Address Allowed
+     *
+     * @return void
+     */
+    public function checkIpAllowed()
+    {
+        $ip_list = $this->options->get('allowed_ips');
+        if ($ip_list) {
+            $client_ip = $this->request->getClientIp();
+            $status = Ip::match($client_ip, explode(',', $ip_list));
+            if (!$status) {
+                $this->logger->warning('IP Not Allowed');
+                $response = Response::create('Access denied for IP: '.$client_ip, 403);
+                $response->send();
+                exit();
             }
         }
     }
