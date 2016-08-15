@@ -127,7 +127,7 @@ abstract class AbstractProvider
     public function redirect($url = null)
     {
         if (is_null($url)) {
-            $url = $payment->getPaymentUrl();
+            $url = $this->getPaymentUrl();
         }
 
         RedirectResponse::create($url)->send();
