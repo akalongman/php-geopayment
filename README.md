@@ -142,7 +142,7 @@ $options = [
 $payment = new Payment('bog', Payment::TYPE_CARD, $options);
 
 // Set mode 'redirect'
-$bog->setMode('redirect');
+$payment->setMode('redirect');
 
 // Set success url
 $payment->setSuccessUrl('your_success_url');
