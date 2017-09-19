@@ -23,7 +23,7 @@
         "symfony/var-dumper": "3.0.*",
         "vlucas/phpdotenv": "2.2.*",
         "symfony/http-foundation": "3.0.*",
-        "nesbot/carbon": "1.21.*",
+        "nesbot/carbon": "~1.21",
         "longman/ip-tools": "~1.1"
     },
     "require-dev": {
