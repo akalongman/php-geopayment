@@ -2,7 +2,7 @@
     "name": "longman/geopayment",
     "type": "library",
     "description": "PHP library for working with Georgian payment providers and banks",
-    "keywords": ["payment", "georgia", "bog", "tbc", "cartu", "merchant", "visa", "ecommerce", "tbcpay", "libertypay", "terminal"],
+    "keywords": ["payment", "pay", "georgia", "bog", "tbc", "cartu", "merchant", "visa", "ecommerce", "tbcpay", "libertypay", "terminal"],
     "license": "MIT",
     "homepage": "https://github.com/akalongman/php-geopayment",
     "support": {
