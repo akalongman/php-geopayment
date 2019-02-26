@@ -165,21 +165,20 @@ abstract class AbstractProvider
      */
     public function checkHttpAuth()
     {
-        if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
+        if (!isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
             header('WWW-Authenticate: Basic realm="' . $this->options->get('shop_name', 'Online Shop') . '"');
             header('HTTP/1.0 401 Unauthorized');
-            $this->logger->warning('HTTP Authorization cancelled');
-            echo 'Access denied';
-            exit;
-        } else {
-            if ($_SERVER['PHP_AUTH_USER'] != $this->options->get('http_auth_user')
-                || $_SERVER['PHP_AUTH_PW'] != $this->options->get('http_auth_pass')
-            ) {
-                $this->logger->warning('HTTP Authorization error: wrong username or password');
-                header('HTTP/1.0 401 Unauthorized');
-                echo 'Access denied';
-                exit;
-            }
+            return $this->logger->warning('HTTP Authorization cancelled');
+        }
+
+        list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':', base64_decode(substr($_SERVER['REDIRECT_HTTP_AUTHORIZATION'], 6)));
+
+        if (
+            $_SERVER['PHP_AUTH_USER'] != $this->options->get('http_auth_user') ||
+            $_SERVER['PHP_AUTH_PW'] != $this->options->get('http_auth_pass')
+        ) {
+            header('HTTP/1.0 401 Unauthorized');
+            return $this->logger->warning('HTTP Authorization error: wrong username or password');
         }
     }
 
